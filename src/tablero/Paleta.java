@@ -36,5 +36,10 @@ public class Paleta {
     // Negro:
     public static int NEGRO1 = 0;
     public static int NEGRO2 = 0;
-    public static int NEGRO3 = 0;    
+    public static int NEGRO3 = 0;
+
+    //Amarillo
+    public static int AMARILLO1 = 255;
+    public static int AMARILLO2 = 255;
+    public static int AMARILLO3 = 0;
 }

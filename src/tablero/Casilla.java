@@ -175,4 +175,12 @@ public class Casilla {
         this.ocupada = ocupada;
     }
         
+     /**
+     * Método que permite modificar el estado de la casilla
+     * @param atacable Nuevo estado de la casilla
+     */
+      public void setAtacable(boolean atacable) {
+        this.atacable = atacable;
+    }
+    
 }

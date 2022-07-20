@@ -42,7 +42,6 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
     private Casilla casillaMasReciente = null;
     private ArrayList<Casilla> casillasDisponibles;
     private boolean partidaActiva;
-    private Timer t;
     private String promocion;
     private Casilla copiaOrigen;
     private Casilla copiaDestino;
