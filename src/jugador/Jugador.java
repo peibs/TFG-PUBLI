@@ -105,6 +105,7 @@ public class Jugador {
         
         // Piezas del jugador:
         ArrayList<Casilla> piezas = this.getPiezasJugador(tablero);
+        ArrayList<Casilla> piezasR = this.getPiezasJugadorRival(tablero);
         
         // Para cada pieza comprobamos si tiene al menos una casilla libre:
         if (piezas != null){
@@ -145,6 +146,27 @@ public class Jugador {
         return(piezas);
     }
     
+    /**
+     * Método que devuelve todas las casillas en las que se encuentran las piezas del jugador rival
+     * @param tablero Situación actual del tablero
+     * @return Todas las casillas en las que se encuentran las piezas del jugador rival
+     */
+    
+    private ArrayList<Casilla> getPiezasJugadorRival(Tablero tablero){
+        
+        ArrayList<Casilla> piezasR = new ArrayList<>();
+        Casilla [][] casillas = tablero.getCasillas();
+        
+        for (Casilla[] casilla : casillas) {
+            for (Casilla casilla1 : casilla) {
+                if (casilla1.isOcupada() && !casilla1.getPieza().getJugador().equals(this)) {
+                    piezasR.add(casilla1);
+                }
+            }
+        }
+        
+        return(piezasR);
+    }
     /**
      * Método que devuelve el estado del jugador
      * 

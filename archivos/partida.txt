@@ -1,1 +1,11 @@
-1. e4        f5
+1. e4        e5
+2. d3        f6
+3. Dh5+      g6
+4. Dxe5+     Ae7
+5. Dxc7      d6
+6. Dc6+      Rf7
+7. f3        Re6
+8. Dxd6+     Rxd6
+9. d4        Da5+
+10. Ad2       Dxd2+
+11. Rxd2    

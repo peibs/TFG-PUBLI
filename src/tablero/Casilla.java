@@ -30,6 +30,12 @@ public class Casilla {
     // Propiedad que comprueba si una casilla está ocupada por una pieza:
     private boolean ocupada;
     
+    //propiedad que comprueba si una casilla es atacada por una pieza
+    private boolean atacable;
+    
+    //Propiedad que comprueba si una casilla es defendida por mi pieza
+    private boolean defendida;
+    
     /**
      * Constructor que crea una casilla incluyendo en ella una pieza de ajedrez
      * 
