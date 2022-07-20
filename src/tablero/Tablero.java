@@ -21,7 +21,7 @@ import java.io.RandomAccessFile;
 /**
  * Tablero de ajedrez
  *
- * @author Martín Mato Búa
+ * @author Pablo García 
  * @version 1.0
  * @see Casilla
  */

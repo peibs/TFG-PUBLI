@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Dama (pieza de ajedrez)
  * 
- * @author Martín Mato Búa
+ * @author Pablo García 
  * @version 1.0
  * @see Pieza
  */

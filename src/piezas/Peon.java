@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Peón (pieza de ajedrez)
  *
- * @author Pablo García Domínguez
+ * @author Pablo García 
  * @version 1.0
  * @see Pieza
  */

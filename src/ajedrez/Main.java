@@ -3,7 +3,7 @@ package ajedrez;
 /**
  * Clase desde la que se ejecuta la aplicación
  *
- * @author Martín Mato Búa
+ * @author Pablo García 
  * @version 1.0
  * @see Ajedrez
  */

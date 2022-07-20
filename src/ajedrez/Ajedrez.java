@@ -20,7 +20,7 @@ import tablero.Paleta;
 
 /**
  *
- * @author MARTÍN
+ * @author Pablo García 
  */
 public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 

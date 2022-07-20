@@ -12,7 +12,7 @@ import piezas.Torre;
 /**
  * Casilla de un tablero de ajedrez
  * 
- * @author Martín Mato Búa
+ * @author Pablo García 
  * @version 1.0
  * @see Tablero
  */

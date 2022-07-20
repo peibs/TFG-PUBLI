@@ -7,7 +7,7 @@ package ajedrez;
 
 /**
  *
- * @author MARTÍN
+ * @author Pablo García 
  */
 public class PantallaInicio extends javax.swing.JFrame {
     

@@ -8,7 +8,7 @@ import tablero.*;
 /**
  * Pieza de ajedrez
  * 
- * @author Pablo García Domínguez
+ * @author Pablo García 
  * @version 1.0
  * @see Peon
  * @see Torre

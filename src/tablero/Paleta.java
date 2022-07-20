@@ -3,7 +3,7 @@ package tablero;
 
 /**
  * Clase que almacena la paleta de colores
- * @author MARTÍN
+ * @author Pablo García 
  * @version 1.0
  */
 public class Paleta {

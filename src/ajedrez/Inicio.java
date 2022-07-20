@@ -7,7 +7,7 @@ package ajedrez;
 
 /**
  *
- * @author Pablo
+ * @author Pablo García 
  */
 public class Inicio extends javax.swing.JFrame {
 
