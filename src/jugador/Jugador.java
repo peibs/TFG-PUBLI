@@ -130,7 +130,7 @@ public class Jugador {
      * @param tablero Situación actual del tablero
      * @return Todas las casillas en las que se encuentran las piezas del jugador
      */
-    private ArrayList<Casilla> getPiezasJugador(Tablero tablero){
+    public ArrayList<Casilla> getPiezasJugador(Tablero tablero){
         
         ArrayList<Casilla> piezas = new ArrayList<>();
         Casilla [][] casillas = tablero.getCasillas();
@@ -152,7 +152,7 @@ public class Jugador {
      * @return Todas las casillas en las que se encuentran las piezas del jugador rival
      */
     
-    private ArrayList<Casilla> getPiezasJugadorRival(Tablero tablero){
+    public ArrayList<Casilla> getPiezasJugadorRival(Tablero tablero){
         
         ArrayList<Casilla> piezasR = new ArrayList<>();
         Casilla [][] casillas = tablero.getCasillas();

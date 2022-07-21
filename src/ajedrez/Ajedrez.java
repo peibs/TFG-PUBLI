@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -374,13 +375,107 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
                         // Desmarcamos la casilla:
                         this.desmarcaCasilla(casillaOrigen);
                     }
-
+                    
                 }
+                //aqui empezaos
+                //limmpiar los flags de atacada cada vez que pasamos el metodo de ayuda
+                Jugador jugador;
+
+                if (turnoBlancas) {
+                     jugador = this.jugadorBlancas;
+                } else {
+                     jugador = this.jugadorNegras;
+                }
+                                
+                marcarCasillasAtacadas(jugador, tablero);
+                
+                
             }
         }
 
     }
+    
+    private void limpiarFlagAtacable(ArrayList<Casilla> piezas, ArrayList<Casilla> piezasRival ){
+        
+        for (int i = 0; i < piezas.size(); i++) {
+            piezas.get(i).setAtacable(false);
+            if (piezasRival.get(i).getPieza().getLetra() != 'R') desmarcaCasilla(piezas.get(i));
+        }
+        for (int i = 0; i < piezasRival.size(); i++) {
+            piezasRival.get(i).setAtacable(false);
+            if (piezasRival.get(i).getPieza().getLetra() != 'R')desmarcaCasilla(piezasRival.get(i));
+        }
+    }
+    
+    public void marcarCasillasAtacadas(Jugador jugador, Tablero tablero) {
+        ArrayList<Casilla> piezas = jugador.getPiezasJugador(tablero);
+        ArrayList<Casilla> piezasRival = jugador.getPiezasJugadorRival(tablero);
+        
+        limpiarFlagAtacable(piezas, piezasRival);
+        
+        Iterator<Casilla> itPiezas = piezas.iterator();
+        while (itPiezas.hasNext()) {
+            Casilla cPieza = itPiezas.next();
+            ArrayList<Casilla> casillasDisponibles = cPieza.getPieza().getCasillasDisponibles(cPieza, tablero);
+            
+            Iterator<Casilla> itPiezasRival = piezasRival.iterator();
+            while (itPiezasRival.hasNext()) { 
+                Casilla cPiezaRival = itPiezasRival.next();
+                ArrayList<Casilla> casillasDisponiblesRival = cPiezaRival.getPieza().getCasillasDisponibles(cPiezaRival, tablero);
+                
+                
+                Iterator<Casilla> itCasillasDisponibles = casillasDisponibles.iterator();
+                while (itCasillasDisponibles.hasNext()) { 
+                    Casilla cCasillasDisponibles = itCasillasDisponibles.next();
+                    
+                    if(cCasillasDisponibles.equals(cPiezaRival)){
+                        cPiezaRival.setAtacable(true);
+                    }
+                }
+                
+                Iterator<Casilla> itCasillasDisponiblesRival = casillasDisponiblesRival.iterator();
+                while (itCasillasDisponiblesRival.hasNext()) { 
+                    Casilla cCasillasDisponiblesRival = itCasillasDisponiblesRival.next();
+                    
+                    if(cCasillasDisponiblesRival.equals(cPieza)){
+                        cPieza.setAtacable(true);
+                    }
+                }
+            }
+            
+        }
+        coloreaCasillasAtacadas(tablero, piezasRival, piezas);
+    }
+    
+    private void coloreaCasillasAtacadas(Tablero tablero, ArrayList<Casilla> piezasRival, ArrayList<Casilla> piezas) {
 
+        // Se colorean las casillas:
+        for (int i = 0; i < piezasRival.size(); i++) {
+            int fila = piezasRival.get(i).getFila();
+            int columna = piezasRival.get(i).getColumna();
+
+            if(piezasRival.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey)
+                    && !(piezas.get(i).getPieza() instanceof Rey)) {
+                this.botonera[7 - fila][columna].setBackground(new Color(
+                Paleta.ROJO1,Paleta.ROJO2,Paleta.ROJO3));
+            }
+            
+        }
+        
+        for (int i = 0; i < piezas.size(); i++) {
+
+            int fila = piezas.get(i).getFila();
+            int columna = piezas.get(i).getColumna();
+
+            if (piezas.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey)
+                    && !(piezas.get(i).getPieza() instanceof Rey)) {
+                this.botonera[7 - fila][columna].setBackground(new Color(
+                Paleta.AMARILLO1,Paleta.AMARILLO2,Paleta.AMARILLO3));
+            }
+            
+        }
+    }
+    
     // Método que inicializa el tablero:
     private void inicializaTablero() {
 

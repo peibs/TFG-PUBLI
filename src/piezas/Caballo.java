@@ -68,10 +68,10 @@ public class Caballo extends Pieza {
 
                 // En tercer lugar, se comprueba que en la casilla de destino no
                 // haya una pieza del mismo jugador:
-                 if (!destino.isOcupada()
-                        || !destino.getPieza().getJugador().equals(origen.getPieza().getJugador()))
-                     movimientoValido = true;
-                     destino.setAtacable(movimientoValido); //Aqui meto el flag de que mi casilla es atacable
+                 movimientoValido = !destino.isOcupada()
+                        || !destino.getPieza().getJugador().equals(origen.getPieza().getJugador());
+                     
+                     //destino.setAtacable(movimientoValido); //Aqui meto el flag de que mi casilla es atacable
                 // Finalmente, comprobamos que el movimiento de caballo, aunque sea 
                 // válido, no deje a nuestro rey en jaque:
                 if (movimientoValido) {

@@ -183,4 +183,11 @@ public class Casilla {
         this.atacable = atacable;
     }
     
+     /**
+     * Método que devuelve si la casilla es atacable
+     * @return Un booleano que comprueba si la casilla está ocupada
+     */
+    public boolean isAtacable() {
+        return atacable;
+    }
 }
