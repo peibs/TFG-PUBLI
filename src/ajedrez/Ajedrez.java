@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import jugador.*;
 import piezas.*;
 import tablero.*;
-import javax.swing.Timer;
 import tablero.Paleta;
 
 /**
@@ -39,7 +38,6 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
     private Casilla casillaOrigen = null;
     private Casilla casillaDestino = null;
     private boolean turnoBlancas = true;
-    private PantallaInicio inicio;
     private Casilla casillaMasReciente = null;
     private ArrayList<Casilla> casillasDisponibles;
     private boolean partidaActiva;
@@ -397,10 +395,10 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
     
     private void limpiarFlagAtacable(ArrayList<Casilla> piezas, ArrayList<Casilla> piezasRival ){
         
-        for (int i = 0; i < piezas.size(); i++) {
+        /*for (int i = 0; i < piezas.size(); i++) {
             piezas.get(i).setAtacable(false);
             if (piezasRival.get(i).getPieza().getLetra() != 'R') desmarcaCasilla(piezas.get(i));
-        }
+        }*/
         for (int i = 0; i < piezasRival.size(); i++) {
             piezasRival.get(i).setAtacable(false);
             if (piezasRival.get(i).getPieza().getLetra() != 'R')desmarcaCasilla(piezasRival.get(i));
@@ -444,18 +442,18 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             }
             
         }
-        coloreaCasillasAtacadas(tablero, piezasRival, piezas);
+        coloreaCasillasAtacadas(piezasRival, piezas);
     }
     
-    private void coloreaCasillasAtacadas(Tablero tablero, ArrayList<Casilla> piezasRival, ArrayList<Casilla> piezas) {
+    private void coloreaCasillasAtacadas(ArrayList<Casilla> piezasRival, ArrayList<Casilla> piezas) {
 
         // Se colorean las casillas:
         for (int i = 0; i < piezasRival.size(); i++) {
             int fila = piezasRival.get(i).getFila();
             int columna = piezasRival.get(i).getColumna();
 
-            if(piezasRival.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey)
-                    && !(piezas.get(i).getPieza() instanceof Rey)) {
+            if(piezasRival.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey))
+                    {
                 this.botonera[7 - fila][columna].setBackground(new Color(
                 Paleta.ROJO1,Paleta.ROJO2,Paleta.ROJO3));
             }
