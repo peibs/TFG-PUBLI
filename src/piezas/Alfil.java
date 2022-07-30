@@ -48,7 +48,7 @@ public class Alfil extends Pieza {
         // En primer lugar comprobamos que la casilla de destino no es la misma
         // que la de origen:
         boolean movimientoValido = !origen.equals(destino);
-
+        boolean piezaDefendida = false;
         if (movimientoValido) {
 
             // Coordenadas actuales:
@@ -70,7 +70,8 @@ public class Alfil extends Pieza {
                 // haya una pieza del mismo jugador:
                 movimientoValido = !destino.isOcupada()
                         || !destino.getPieza().getJugador().equals(origen.getPieza().getJugador());
-
+                piezaDefendida = destino.isOcupada()
+                        && destino.getPieza().getJugador().equals(origen.getPieza().getJugador());
                 if (movimientoValido) {
 
                     // En cuarto lugar, se comprueba que no haya piezas en medio:
@@ -80,7 +81,7 @@ public class Alfil extends Pieza {
                         int p = columna1 + 1;
 
                         while (m < fila2 && p < columna2 && movimientoValido) {
-                            movimientoValido = !tablero.getCasilla(m, p).isOcupada();
+                            movimientoValido = !tablero.getCasilla(m, p).isOcupada() ;
                             m++;
                             p++;
                         }
@@ -126,7 +127,7 @@ public class Alfil extends Pieza {
                         Casilla casilla2 = new Casilla(fila2, columna2, origen.getPieza());
 
                         miTablero.setCasilla(casilla1);
-                        miTablero.setCasilla(casilla2);;
+                        miTablero.setCasilla(casilla2);
 
                         boolean jugadorBlancas;
 
@@ -136,13 +137,16 @@ public class Alfil extends Pieza {
 
                     }
 
-                }
+                } 
+                    
             }
         }
         
         // Salida de datos:
         int salida;
-        if (movimientoValido){
+        if(piezaDefendida)
+            salida = Pieza.PIEZA_DEFENDIDA;
+        else if (movimientoValido && !piezaDefendida){
             salida = Pieza.MOVIMIENTO_LEGAL;
         }
         else{
@@ -169,12 +173,35 @@ public class Alfil extends Pieza {
             for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
                 
                 Casilla destino = tablero.getCasilla(i,j);
-                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL){
+                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL && 
+                        this.mover(origen, destino, tablero) != Pieza.PIEZA_DEFENDIDA){
                     misCasillas.add(destino);
                 }
             }
         }
         
         return(misCasillas);
+    }
+    
+    //Metodo que devuelve las casilas defendidas por la pieza
+    //Metodo que devuelve las casilas defendidas por la pieza
+    @Override
+    public ArrayList<Casilla> getCasillasDefendidas(Casilla origen, Tablero tablero) {
+
+        ArrayList<Casilla> misCasillasDef = new ArrayList<>();
+
+        // Para cada una de las casillas, comprobamos a cuáles puede ir el Peón:
+        for (int i = 0; i < tablero.getCasillas().length; i++) {
+            for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
+
+                Casilla destino = tablero.getCasilla(i, j);
+                if ( 
+                       this.mover(origen, destino, tablero) == Pieza.PIEZA_DEFENDIDA) {
+                    misCasillasDef.add(destino);
+                }
+            }
+        }
+
+        return (misCasillasDef);
     }
 }

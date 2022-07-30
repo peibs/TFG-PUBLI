@@ -1,8 +1,7 @@
-1. e4        d5
-2. Dh5       b5
-3. Dg4       Aa6
-4. Dd7+      Dxd7
-5. d3        d4
-6. Ag5       f6
-7. Ah4       g5
-8. e5      
+1. e4        e5
+2. d3        d5
+3. c3        dxe4
+4. Ae2       c5
+5. Dc2       Ae6
+6. Ag4       b6
+7. Af5     

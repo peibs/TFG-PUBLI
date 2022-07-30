@@ -51,6 +51,11 @@ public abstract class Pieza {
      */
     public final static int ENROQUE_LARGO = 5;
     
+    /**
+     * Valor que confirma que el enroque largo del rey es legal
+     */
+    public final static int PIEZA_DEFENDIDA = 6;
+    
     // Jugador en control de la pieza:
     private Jugador jugador;
     
@@ -87,6 +92,16 @@ public abstract class Pieza {
      * @return Casillas a las que puede mover la pieza
      */
     public abstract ArrayList<Casilla> getCasillasDisponibles(Casilla casillaActual, Tablero tablero);
+    
+    
+      /**
+     * Método que devuelve las casillas a las que defiende la pieza de la casilla actual
+     * 
+     * @param casillaActual Casilla en la que se encuentra la pieza
+     * @param tablero Situación global del tablero
+     * @return Casillas a las que puede mover la pieza
+     */
+    public abstract ArrayList<Casilla> getCasillasDefendidas(Casilla casillaActual, Tablero tablero);
     
     /**
      * Método que permite obtener el jugador en control de la pieza

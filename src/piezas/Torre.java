@@ -181,4 +181,26 @@ public class Torre extends Pieza {
         
         return(misCasillas);
     }
+    
+    //Metodo que devuelve las casilas defendidas por la pieza
+    //Metodo que devuelve las casilas defendidas por la pieza
+    @Override
+    public ArrayList<Casilla> getCasillasDefendidas(Casilla origen, Tablero tablero) {
+
+        ArrayList<Casilla> misCasillasDef = new ArrayList<>();
+
+        // Para cada una de las casillas, comprobamos a cuáles puede ir el Peón:
+        for (int i = 0; i < tablero.getCasillas().length; i++) {
+            for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
+
+                Casilla destino = tablero.getCasilla(i, j);
+                if (this.mover(origen, destino, tablero) == Pieza.PIEZA_DEFENDIDA) {
+                    misCasillasDef.add(destino);
+                }
+            }
+        }
+
+        return (misCasillasDef);
+    }
+    
 }

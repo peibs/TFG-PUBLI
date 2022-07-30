@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -141,6 +142,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
                         // Marcamos las casillas a las que puede ir la pieza:
                         this.coloreaCasillasDisponibles(casillaOrigen, tablero);
+                        
                     } else {
 
                         if (casillaOrigen != null) {
@@ -154,7 +156,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
                             int resultado = casillaOrigen.getPieza().mover(
                                     casillaOrigen, casillaDestino, tablero);
 
-                            if (resultado != Pieza.MOVIMIENTO_ILEGAL) {
+                            if (resultado != Pieza.MOVIMIENTO_ILEGAL && resultado !=Pieza.PIEZA_DEFENDIDA) {
 
                                 // Copiamos las casillas para poder guardar el movimiento:
                                 copiaOrigen = new Casilla(casillaOrigen);
@@ -268,8 +270,12 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
                                 if (turnoBlancas) {
                                     jugador = this.jugadorBlancas;
+                                    nombreJugadorNegras.setVisible(false);
+                                    nombreJugadorBlancas.setVisible(true);
                                 } else {
                                     jugador = this.jugadorNegras;
+                                     nombreJugadorNegras.setVisible(true);
+                                     nombreJugadorBlancas.setVisible(false);
                                 }
 
                                 // Comprobamos si hay jaque mate o ahogado:
@@ -381,12 +387,13 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
                 if (turnoBlancas) {
                      jugador = this.jugadorBlancas;
+                     
                 } else {
                      jugador = this.jugadorNegras;
                 }
-                                
+                limpiarFlagDefendida();               
                 marcarCasillasAtacadas(jugador, tablero);
-                
+                marcarCasillasDefendidas(jugador, tablero);
                 
             }
         }
@@ -405,42 +412,47 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
         }
     }
     
+    
+    //Metodo que desmarca una casilla como defendida
+    
+    private void limpiarFlagDefendida(){
+        
+    Casilla[][] casillas = tablero.getCasillas();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tablero.getCasilla(i, j).setDefendida(false);
+                desmarcaBorde(tablero.getCasilla(i,j));
+                
+        }
+        }
+    }
+    
     public void marcarCasillasAtacadas(Jugador jugador, Tablero tablero) {
         ArrayList<Casilla> piezas = jugador.getPiezasJugador(tablero);
         ArrayList<Casilla> piezasRival = jugador.getPiezasJugadorRival(tablero);
         
         limpiarFlagAtacable(piezas, piezasRival);
         
-        Iterator<Casilla> itPiezas = piezas.iterator();
-        while (itPiezas.hasNext()) {
-            Casilla cPieza = itPiezas.next();
+        for (Casilla cPieza : piezas) {
             ArrayList<Casilla> casillasDisponibles = cPieza.getPieza().getCasillasDisponibles(cPieza, tablero);
             
-            Iterator<Casilla> itPiezasRival = piezasRival.iterator();
-            while (itPiezasRival.hasNext()) { 
-                Casilla cPiezaRival = itPiezasRival.next();
+            for (Casilla cPiezaRival : piezasRival) {
                 ArrayList<Casilla> casillasDisponiblesRival = cPiezaRival.getPieza().getCasillasDisponibles(cPiezaRival, tablero);
                 
                 
-                Iterator<Casilla> itCasillasDisponibles = casillasDisponibles.iterator();
-                while (itCasillasDisponibles.hasNext()) { 
-                    Casilla cCasillasDisponibles = itCasillasDisponibles.next();
-                    
+                for (Casilla cCasillasDisponibles : casillasDisponibles) {
                     if(cCasillasDisponibles.equals(cPiezaRival)){
                         cPiezaRival.setAtacable(true);
                     }
                 }
                 
-                Iterator<Casilla> itCasillasDisponiblesRival = casillasDisponiblesRival.iterator();
-                while (itCasillasDisponiblesRival.hasNext()) { 
-                    Casilla cCasillasDisponiblesRival = itCasillasDisponiblesRival.next();
-                    
+                for (Casilla cCasillasDisponiblesRival : casillasDisponiblesRival) {
                     if(cCasillasDisponiblesRival.equals(cPieza)){
                         cPieza.setAtacable(true);
                     }
                 }
             }
-            
         }
         coloreaCasillasAtacadas(piezasRival, piezas);
     }
@@ -465,13 +477,71 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             int fila = piezas.get(i).getFila();
             int columna = piezas.get(i).getColumna();
 
-            if (piezas.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey)
-                    && !(piezas.get(i).getPieza() instanceof Rey)) {
+            if (piezas.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey)) {
                 this.botonera[7 - fila][columna].setBackground(new Color(
                 Paleta.AMARILLO1,Paleta.AMARILLO2,Paleta.AMARILLO3));
             }
             
         }
+    }
+    //Método que marca las casillas defendidas
+    
+    public void marcarCasillasDefendidas(Jugador jugador, Tablero tablero) {
+        ArrayList<Casilla> piezas = jugador.getPiezasJugador(tablero);
+        ArrayList<Casilla> piezasRival = jugador.getPiezasJugadorRival(tablero);
+        
+        //limpiarFlagDefendida();
+        
+        for (Casilla cPieza : piezas) {
+            ArrayList<Casilla> casillasDefendidas = cPieza.getPieza().getCasillasDefendidas(cPieza, tablero);
+            
+            for (Casilla cPiezaRival : piezasRival) {
+                ArrayList<Casilla> casillasDefendidasRival = cPiezaRival.getPieza().getCasillasDefendidas(cPiezaRival, tablero);
+                
+                
+                for (Casilla cCasillasDefendidas : casillasDefendidas) {
+                    
+                        cCasillasDefendidas.setDefendida(true);
+                    
+                }
+                
+                for (Casilla cCasillasDefendidasRival : casillasDefendidasRival) {
+                    
+                        cCasillasDefendidasRival.setDefendida(true);
+                    
+                }
+            }
+        }
+        coloreaCasillasDefendidas(piezasRival, piezas);
+    }
+    
+    //Metodo que colorea las casillas defendidas
+    
+    private void coloreaCasillasDefendidas(ArrayList<Casilla> piezasRival, ArrayList<Casilla> piezas) {
+
+       for (int i = 0; i < piezasRival.size(); i++) {
+            int fila = piezasRival.get(i).getFila();
+            int columna = piezasRival.get(i).getColumna();
+
+            if(piezasRival.get(i).isDefendida())
+                    {
+                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.CYAN, 4));
+            }
+             }
+        
+        for (int i = 0; i < piezas.size(); i++) {
+
+            int fila = piezas.get(i).getFila();
+            int columna = piezas.get(i).getColumna();
+
+            if (piezas.get(i).isDefendida())
+                     {
+                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.white, 4));
+            }
+            
+        }
+        
+                   
     }
     
     // Método que inicializa el tablero:
@@ -561,6 +631,20 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Método que devuelve la frontera de una casilla a su color original
+     *
+     * @param casilla Casilla que se desea desmarcar
+     */
+    private void desmarcaBorde(Casilla casilla) {
+
+        int fila = casilla.getFila();
+        int columna = casilla.getColumna();
+
+        this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.GRAY));
+           
+    }
+    
     /**
      * Método que colorea de verde las casillas a las que puede ir una pieza
      *

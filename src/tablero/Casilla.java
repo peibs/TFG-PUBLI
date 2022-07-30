@@ -48,6 +48,8 @@ public class Casilla {
         this.columna = columna;
         this.pieza = pieza;        
         this.ocupada = this.pieza != null;
+        this.atacable = false;
+        this.defendida = false;
     }
     
     public Casilla(Casilla casilla){
@@ -88,6 +90,8 @@ public class Casilla {
         this.columna = columna;
         this.pieza = null;
         this.ocupada = false;
+        this.atacable = false;
+        this.defendida = false;
     }
         
     /**
@@ -189,5 +193,22 @@ public class Casilla {
      */
     public boolean isAtacable() {
         return atacable;
+    }
+    
+       /**
+     * Método que devuelve si la casilla es defendida
+     * @return Un booleano que comprueba si la casilla está ocupada
+     */
+    public boolean isDefendida() {
+        return defendida;
+    }
+    
+    
+         /**
+     * Método que permite modificar el estado de la casilla
+     * @param defendida Nuevo estado de la casilla
+     */
+      public void setDefendida(boolean defendida) {
+        this.defendida = defendida;
     }
 }

@@ -46,10 +46,12 @@ public class Peon extends Pieza {
 
         boolean enPassant = false;
         boolean promocion = false;
+        
 
         // En primer lugar comprobamos que la casilla de destino no es la misma
         // que la de origen:
         boolean movimientoValido = !origen.equals(destino);
+        boolean piezaDefendida = false;
 
         if (movimientoValido) {
 
@@ -90,14 +92,21 @@ public class Peon extends Pieza {
                 // Si la casilla de destino está vacía, comprobamos si es posible
                 // comer al paso:
                 if (tablero.getNumMovimientos() > 0 && destino.isOcupada()
-                        && !destino.getPieza().getJugador().equals(origen.getPieza().getJugador())) {
-                    movimientoValido = ((origen.getPieza().getJugador().getColor() == Jugador.BLANCO
+                       /* && !destino.getPieza().getJugador().equals(origen.getPieza().getJugador())*/) {
+                    movimientoValido = (!destino.getPieza().getJugador().equals(origen.getPieza().getJugador()) && (origen.getPieza().getJugador().getColor() == Jugador.BLANCO
                             && (fila2 == (fila1 + 1))
-                            || (origen.getPieza().getJugador().getColor() == Jugador.NEGRO
+                            || ( !destino.getPieza().getJugador().equals(origen.getPieza().getJugador()) && origen.getPieza().getJugador().getColor() == Jugador.NEGRO
+                            && (fila2 == (fila1 - 1)))));   
+                    
+                    piezaDefendida = (destino.getPieza().getJugador().equals(origen.getPieza().getJugador()) && (origen.getPieza().getJugador().getColor() == Jugador.BLANCO
+                            && (fila2 == (fila1 + 1))
+                            || destino.getPieza().getJugador().equals(origen.getPieza().getJugador())&& (origen.getPieza().getJugador().getColor() == Jugador.NEGRO
                             && (fila2 == (fila1 - 1)))));
-                } else {
-                    movimientoValido = this.enPassant(origen, destino, tablero);
-                    enPassant = movimientoValido;
+                }   
+                
+                        else{
+                        movimientoValido = this.enPassant(origen, destino, tablero);
+                        enPassant = movimientoValido;
                 }
 
             } else {
@@ -135,7 +144,9 @@ public class Peon extends Pieza {
 
         // Salida de datos:
         int salida;
-        if (promocion) {
+        if (piezaDefendida) {
+            salida = Pieza.PIEZA_DEFENDIDA;
+        }else if (promocion) {
             salida = Pieza.PROMOCION;
         } else if (enPassant) {
             salida = Pieza.EN_PASSANT;
@@ -211,7 +222,8 @@ public class Peon extends Pieza {
             for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
 
                 Casilla destino = tablero.getCasilla(i, j);
-                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL) {
+                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL &&
+                        this.mover(origen, destino, tablero) != Pieza.PIEZA_DEFENDIDA) {
                     misCasillas.add(destino);
                 }
             }
@@ -219,5 +231,25 @@ public class Peon extends Pieza {
 
         return (misCasillas);
     }
+    
+    
+    //Metodo que devuelve las casilas defendidas por la pieza
+    @Override
+    public ArrayList<Casilla> getCasillasDefendidas(Casilla origen, Tablero tablero) {
 
+        ArrayList<Casilla> misCasillasDef = new ArrayList<>();
+
+        // Para cada una de las casillas, comprobamos a cuáles puede ir el Peón:
+        for (int i = 0; i < tablero.getCasillas().length; i++) {
+            for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
+
+                Casilla destino = tablero.getCasilla(i, j);
+                if (this.mover(origen, destino, tablero) == Pieza.PIEZA_DEFENDIDA) {
+                    misCasillasDef.add(destino);
+                }
+            }
+        }
+
+        return (misCasillasDef);
+    }
 }
