@@ -138,7 +138,50 @@ public class Alfil extends Pieza {
                     }
 
                 } 
+                else if (piezaDefendida)  {
                     
+                    if (fila2 > fila1 && columna2 > columna1) {
+
+                        int m = fila1 + 1;
+                        int p = columna1 + 1;
+
+                        while (m < fila2 && p < columna2 && piezaDefendida) {
+                            piezaDefendida = !tablero.getCasilla(m, p).isOcupada() ;
+                            m++;
+                            p++;
+                        }
+                    } else if (fila2 > fila1 && columna2 < columna1) {
+
+                        int m = fila1 + 1;
+                        int p = columna1 - 1;
+
+                        while (m < fila2 && p > columna2 && piezaDefendida) {
+                            piezaDefendida = !tablero.getCasilla(m, p).isOcupada();
+                            m++;
+                            p--;
+                        }
+                    } else if (fila2 < fila1 && columna2 > columna1) {
+
+                        int m = fila1 - 1;
+                        int p = columna1 + 1;
+
+                        while (m > fila2 && p < columna2 && piezaDefendida) {
+                            piezaDefendida = !tablero.getCasilla(m, p).isOcupada();
+                            m--;
+                            p++;
+                        }
+                    } else if (fila2 < fila1 && columna2 < columna1) {
+
+                        int m = fila1 - 1;
+                        int p = columna1 - 1;
+
+                        while (m > fila2 && p > columna2 && piezaDefendida) {
+                            piezaDefendida = !tablero.getCasilla(m, p).isOcupada();
+                            m--;
+                            p--;
+                        }
+                    }
+                } 
             }
         }
         
@@ -146,6 +189,7 @@ public class Alfil extends Pieza {
         int salida;
         if(piezaDefendida)
             salida = Pieza.PIEZA_DEFENDIDA;
+        
         else if (movimientoValido && !piezaDefendida){
             salida = Pieza.MOVIMIENTO_LEGAL;
         }

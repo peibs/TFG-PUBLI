@@ -138,7 +138,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
                         // Marcamos la casilla:
                         botonera[7 - fila][columna].setBackground(new Color(
-                        Paleta.VERDE1,Paleta.VERDE2,Paleta.VERDE3));
+                        Paleta.AZUL4,Paleta.AZUL5,Paleta.AZUL6));
 
                         // Marcamos las casillas a las que puede ir la pieza:
                         this.coloreaCasillasDisponibles(casillaOrigen, tablero);
@@ -391,6 +391,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
                 } else {
                      jugador = this.jugadorNegras;
                 }
+                
                 limpiarFlagDefendida();               
                 marcarCasillasAtacadas(jugador, tablero);
                 marcarCasillasDefendidas(jugador, tablero);
@@ -467,7 +468,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             if(piezasRival.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey))
                     {
                 this.botonera[7 - fila][columna].setBackground(new Color(
-                Paleta.ROJO1,Paleta.ROJO2,Paleta.ROJO3));
+                Paleta.AMARILLO1,Paleta.AMARILLO2,Paleta.AMARILLO3));
             }
             
         }
@@ -479,7 +480,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
             if (piezas.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey)) {
                 this.botonera[7 - fila][columna].setBackground(new Color(
-                Paleta.AMARILLO1,Paleta.AMARILLO2,Paleta.AMARILLO3));
+                Paleta.ROJO1,Paleta.ROJO2,Paleta.ROJO3));
             }
             
         }
@@ -523,9 +524,9 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             int fila = piezasRival.get(i).getFila();
             int columna = piezasRival.get(i).getColumna();
 
-            if(piezasRival.get(i).isDefendida())
+            if(!piezasRival.get(i).isDefendida())
                     {
-                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.CYAN, 4));
+                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.CYAN, 3));
             }
              }
         
@@ -534,9 +535,9 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             int fila = piezas.get(i).getFila();
             int columna = piezas.get(i).getColumna();
 
-            if (piezas.get(i).isDefendida())
+            if (!piezas.get(i).isDefendida())
                      {
-                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.white, 4));
+                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.ORANGE, 3));
             }
             
         }
@@ -663,7 +664,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             int columna = casillasDisponibles.get(i).getColumna();
 
             this.botonera[7 - fila][columna].setBackground(new Color(
-            Paleta.VERDE1,Paleta.VERDE2,Paleta.VERDE3));
+            Paleta.AZUL4,Paleta.AZUL5,Paleta.AZUL6));
         }
     }
 
@@ -677,8 +678,8 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
     private void initComponents() {
 
         panelSuperior = new javax.swing.JPanel();
-        nombreJugadorNegras = new javax.swing.JLabel();
         relojNegras = new javax.swing.JLabel();
+        nombreJugadorNegras = new javax.swing.JLabel();
         panelInferior = new javax.swing.JPanel();
         nombreJugadorBlancas = new javax.swing.JLabel();
         panelTablero = new javax.swing.JPanel();
@@ -691,6 +692,10 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
         panelSuperior.setPreferredSize(new java.awt.Dimension(500, 50));
         panelSuperior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
 
+        relojNegras.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        relojNegras.setForeground(new java.awt.Color(255, 255, 255));
+        panelSuperior.add(relojNegras);
+
         nombreJugadorNegras.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         nombreJugadorNegras.setForeground(new java.awt.Color(255, 255, 255));
         nombreJugadorNegras.setText("JUGADOR NEGRAS");
@@ -698,10 +703,6 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
         nombreJugadorNegras.setMinimumSize(new java.awt.Dimension(410, 29));
         nombreJugadorNegras.setPreferredSize(new java.awt.Dimension(410, 29));
         panelSuperior.add(nombreJugadorNegras);
-
-        relojNegras.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        relojNegras.setForeground(new java.awt.Color(255, 255, 255));
-        panelSuperior.add(relojNegras);
 
         getContentPane().add(panelSuperior, java.awt.BorderLayout.PAGE_START);
 

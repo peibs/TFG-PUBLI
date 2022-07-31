@@ -170,7 +170,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaInicio().setVisible(true);
+               new PantallaInicio().setVisible(true);
             }
         });
     }

@@ -42,4 +42,14 @@ public class Paleta {
     public static int AMARILLO1 = 255;
     public static int AMARILLO2 = 255;
     public static int AMARILLO3 = 0;
+    
+    //Azul claro
+    public static int AZUL1 = 133;
+    public static int AZUL2 = 218;
+    public static int AZUL3 = 255;
+    
+    //Azul oscuro
+    public static int AZUL4 = 0;
+    public static int AZUL5 = 0;
+    public static int AZUL6 = 255;
 }

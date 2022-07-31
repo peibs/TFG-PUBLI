@@ -52,6 +52,7 @@ public class Rey extends Pieza {
         // En primer lugar comprobamos que la casilla de destino no es la misma
         // que la de origen:
         boolean movimientoValido = !origen.equals(destino);
+        boolean piezaDefendida = false;
 
         boolean enroque = false;
         boolean enroqueCorto = false;
@@ -177,7 +178,9 @@ public class Rey extends Pieza {
                     // haya una pieza del mismo jugador:
                     movimientoValido = !destino.isOcupada()
                             || !destino.getPieza().getJugador().equals(origen.getPieza().getJugador());
-
+                     piezaDefendida = destino.isOcupada()
+                        && destino.getPieza().getJugador().equals(origen.getPieza().getJugador());
+                     
                     if (movimientoValido) {
                         // Finalmente, comprobamos que el movimiento de rey, aunque sea 
                         // válido, no deje al jugador en jaque:
@@ -205,7 +208,11 @@ public class Rey extends Pieza {
 
         // Salida de datos:
         int salida;
-        if (movimientoValido) {
+        
+        if(piezaDefendida){
+            salida = Pieza.PIEZA_DEFENDIDA;
+        }       
+        else if (movimientoValido && !piezaDefendida) {
             if (enroque) {
                 if (enroqueCorto) {
                     salida = Pieza.ENROQUE_CORTO;
@@ -257,7 +264,8 @@ public class Rey extends Pieza {
             for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
                 
                 Casilla destino = tablero.getCasilla(i,j);
-                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL){
+                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL &&
+                        this.mover(origen, destino, tablero) != Pieza.PIEZA_DEFENDIDA){
                     misCasillas.add(destino);
                 }
             }

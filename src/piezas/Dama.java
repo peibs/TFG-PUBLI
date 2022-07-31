@@ -58,11 +58,21 @@ public class Dama extends Pieza {
         boolean movimientoValidoTorre = miTorre.mover(origen, destino, tablero) == Pieza.MOVIMIENTO_LEGAL;
         boolean movimientoValidoAlfil = miAlfil.mover(origen, destino, tablero) == Pieza.MOVIMIENTO_LEGAL;
         
+        boolean piezaDefendidaTorre = miTorre.mover(origen, destino, tablero) == Pieza.PIEZA_DEFENDIDA;
+        boolean piezaDefendidaAlfil = miAlfil.mover(origen, destino, tablero) == Pieza.PIEZA_DEFENDIDA;
+        
+        
         boolean movimientoValido =  movimientoValidoTorre || movimientoValidoAlfil;
+        boolean piezaDefendida = piezaDefendidaTorre || piezaDefendidaAlfil;
         
         // Salida de datos:
         int salida;
-        if (movimientoValido){
+        
+        if(piezaDefendida){
+            salida = Pieza.PIEZA_DEFENDIDA;
+        }
+        
+        else if (movimientoValido && !piezaDefendida){
             salida = Pieza.MOVIMIENTO_LEGAL;
         }
         else{
@@ -89,7 +99,8 @@ public class Dama extends Pieza {
             for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
                 
                 Casilla destino = tablero.getCasilla(i,j);
-                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL){
+                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL &&
+                        this.mover(origen, destino, tablero) != Pieza.PIEZA_DEFENDIDA){
                     misCasillas.add(destino);
                 }
             }

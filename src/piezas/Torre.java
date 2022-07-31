@@ -53,6 +53,7 @@ public class Torre extends Pieza {
         // En primer lugar comprobamos que la casilla de destino no es la misma
         // que la de origen:
         boolean movimientoValido = !origen.equals(destino);
+        boolean piezaDefendida = false;
 
         if (movimientoValido) {
 
@@ -74,7 +75,8 @@ public class Torre extends Pieza {
                 // haya una pieza del mismo jugador:
                 movimientoValido = !destino.isOcupada()
                         || !destino.getPieza().getJugador().equals(origen.getPieza().getJugador());
-
+                piezaDefendida = destino.isOcupada()
+                        && destino.getPieza().getJugador().equals(origen.getPieza().getJugador());
                 if (movimientoValido) {
 
                     // En cuarto lugar, se comprueba que no haya piezas en medio:
@@ -124,13 +126,50 @@ public class Torre extends Pieza {
                         movimientoValido = !miTablero.enJaque(jugadorBlancas);
                     }
                 }
+                
+                else if (piezaDefendida) {
+
+                    // Se comprueba que no haya mas piezas para que solo marque una
+                    if (fila1 == fila2) {
+
+                        if (columna1 > columna2) {
+                            int temporal = columna1;
+                            columna1 = columna2;
+                            columna2 = temporal;
+                        }
+
+                        int pos = columna1 + 1;
+
+                        while (pos < columna2 && piezaDefendida) {
+                            piezaDefendida = !tablero.getCasilla(fila1, pos).isOcupada();
+                            pos++;
+                        }
+                    } else if (columna1 == columna2) {
+
+                        if (fila1 > fila2) {
+                            int temporal = fila1;
+                            fila1 = fila2;
+                            fila2 = temporal;
+                        }
+
+                        int pos = fila1 + 1;
+
+                        while (pos < fila2 && piezaDefendida) {
+                            piezaDefendida = !tablero.getCasilla(pos, columna1).isOcupada();
+                            pos++;
+                        }
+                    }
+                }
+                
             }
         }
         
         // Salida de datos:
         int salida;
-        
-        if (movimientoValido){
+        if(piezaDefendida){
+            salida = Pieza.PIEZA_DEFENDIDA;
+        }
+        else if (movimientoValido && !piezaDefendida){
             salida = Pieza.MOVIMIENTO_LEGAL;
         }
         else{
@@ -173,7 +212,8 @@ public class Torre extends Pieza {
             for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
                 
                 Casilla destino = tablero.getCasilla(i,j);
-                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL){
+                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL &&
+                        this.mover(origen, destino, tablero) !=Pieza.PIEZA_DEFENDIDA){
                     misCasillas.add(destino);
                 }
             }

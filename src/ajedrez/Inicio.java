@@ -39,7 +39,7 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
 
-        panelContenedor.setBackground(new java.awt.Color(0, 0, 0));
+        panelContenedor.setBackground(new java.awt.Color(102, 51, 0));
         panelContenedor.setMaximumSize(new java.awt.Dimension(800, 600));
         panelContenedor.setMinimumSize(new java.awt.Dimension(800, 600));
         panelContenedor.setPreferredSize(new java.awt.Dimension(800, 600));
@@ -126,8 +126,8 @@ public class Inicio extends javax.swing.JFrame {
         int opcion = listaTiempo.getSelectedIndex();
         */
 
-        String nombreBlancas = "Blancas";
-        String nombreNegras = "Negras";
+        String nombreBlancas = "Mueven Blancas";
+        String nombreNegras = "Mueven Negras";
         int opcion = 1;
 
         ajedrez = new Ajedrez(nombreBlancas,nombreNegras, opcion);

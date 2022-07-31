@@ -100,7 +100,12 @@ public class Caballo extends Pieza {
         
         // Salida de datos:
         int salida;
-        if (movimientoValido){
+        
+        if(piezaDefendida){
+            salida = Pieza.PIEZA_DEFENDIDA;
+        }
+        
+        else if (movimientoValido && !piezaDefendida){
             salida = Pieza.MOVIMIENTO_LEGAL;
         }
         else{
@@ -127,7 +132,8 @@ public class Caballo extends Pieza {
             for (int j = 0; j < tablero.getCasillas()[i].length; j++) {
                 
                 Casilla destino = tablero.getCasilla(i,j);
-                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL){
+                if (this.mover(origen, destino, tablero) != Pieza.MOVIMIENTO_ILEGAL &&
+                        this.mover(origen, destino, tablero) != Pieza.PIEZA_DEFENDIDA){
                     misCasillas.add(destino);
                 }
             }
