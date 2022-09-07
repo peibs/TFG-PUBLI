@@ -96,7 +96,8 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
                 }
                 botonera[i][j].setName(Integer.toString(7 - i) + Integer.toString(j));
                 panelTablero.add(botonera[i][j]);
-
+                
+                
                 botonera[i][j].addActionListener(new java.awt.event.ActionListener() {
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,6 +109,9 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
         this.inicializaTablero();
         this.setVisible(true);
+        jaqueNegro.setVisible(false);
+        jaqueBlanco.setVisible(false);
+        nombreJugadorNegras.setVisible(false);
        
    
     }
@@ -138,7 +142,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
                         // Marcamos la casilla:
                         botonera[7 - fila][columna].setBackground(new Color(
-                        Paleta.AZUL4,Paleta.AZUL5,Paleta.AZUL6));
+                        Paleta.VERDE1,Paleta.VERDE2,Paleta.VERDE3));
 
                         // Marcamos las casillas a las que puede ir la pieza:
                         this.coloreaCasillasDisponibles(casillaOrigen, tablero);
@@ -272,10 +276,14 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
                                     jugador = this.jugadorBlancas;
                                     nombreJugadorNegras.setVisible(false);
                                     nombreJugadorBlancas.setVisible(true);
+                                    jaqueNegro.setVisible(false);
+                                    jaqueBlanco.setVisible(false);
                                 } else {
                                     jugador = this.jugadorNegras;
                                      nombreJugadorNegras.setVisible(true);
                                      nombreJugadorBlancas.setVisible(false);
+                                     jaqueNegro.setVisible(false);
+                                     jaqueBlanco.setVisible(false);
                                 }
 
                                 // Comprobamos si hay jaque mate o ahogado:
@@ -445,6 +453,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
                 for (Casilla cCasillasDisponibles : casillasDisponibles) {
                     if(cCasillasDisponibles.equals(cPiezaRival)){
                         cPiezaRival.setAtacable(true);
+                        cPiezaRival.setAtacantes(1);
                     }
                 }
                 
@@ -468,7 +477,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             if(piezasRival.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey))
                     {
                 this.botonera[7 - fila][columna].setBackground(new Color(
-                Paleta.AMARILLO1,Paleta.AMARILLO2,Paleta.AMARILLO3));
+                Paleta.AZUL1,Paleta.AZUL2,Paleta.AZUL3));
             }
             
         }
@@ -480,7 +489,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
             if (piezas.get(i).isAtacable() && !(piezasRival.get(i).getPieza() instanceof Rey)) {
                 this.botonera[7 - fila][columna].setBackground(new Color(
-                Paleta.ROJO1,Paleta.ROJO2,Paleta.ROJO3));
+                Paleta.ROJO4,Paleta.ROJO5,Paleta.ROJO6));
             }
             
         }
@@ -526,7 +535,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
             if(!piezasRival.get(i).isDefendida())
                     {
-                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.CYAN, 3));
+                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
             }
              }
         
@@ -537,7 +546,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
 
             if (!piezas.get(i).isDefendida())
                      {
-                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.ORANGE, 3));
+                this.botonera[7 - fila][columna].setBorder(BorderFactory.createLineBorder(Color.red, 3));
             }
             
         }
@@ -590,6 +599,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             // Marcamos el rey blanco:
             botonera[7 - fBlanco][cBlanco].setBackground(new Color(
             Paleta.ROJO1,Paleta.ROJO2,Paleta.ROJO3));
+            jaqueBlanco.setVisible(true);
         } // Comprobamos si el rey negro está en jaque:
         else if (this.tablero.enJaque(false)) {
 
@@ -601,6 +611,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             // Marcamos el rey negro:
             botonera[7 - fNegro][cNegro].setBackground(new Color(
             Paleta.ROJO1,Paleta.ROJO2,Paleta.ROJO3));
+            jaqueNegro.setVisible(true);
         } else {
 
             // Desmarcamos el rey negro:
@@ -664,7 +675,7 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
             int columna = casillasDisponibles.get(i).getColumna();
 
             this.botonera[7 - fila][columna].setBackground(new Color(
-            Paleta.AZUL4,Paleta.AZUL5,Paleta.AZUL6));
+            Paleta.VERDE1,Paleta.VERDE2,Paleta.VERDE3));
         }
     }
 
@@ -678,9 +689,10 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
     private void initComponents() {
 
         panelSuperior = new javax.swing.JPanel();
-        relojNegras = new javax.swing.JLabel();
+        jaqueNegro = new javax.swing.JLabel();
         nombreJugadorNegras = new javax.swing.JLabel();
         panelInferior = new javax.swing.JPanel();
+        jaqueBlanco = new javax.swing.JLabel();
         nombreJugadorBlancas = new javax.swing.JLabel();
         panelTablero = new javax.swing.JPanel();
 
@@ -692,9 +704,10 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
         panelSuperior.setPreferredSize(new java.awt.Dimension(500, 50));
         panelSuperior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
 
-        relojNegras.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        relojNegras.setForeground(new java.awt.Color(255, 255, 255));
-        panelSuperior.add(relojNegras);
+        jaqueNegro.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        jaqueNegro.setForeground(new java.awt.Color(255, 255, 255));
+        jaqueNegro.setText("Jaque al rey");
+        panelSuperior.add(jaqueNegro);
 
         nombreJugadorNegras.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         nombreJugadorNegras.setForeground(new java.awt.Color(255, 255, 255));
@@ -711,6 +724,11 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
         panelInferior.setMinimumSize(new java.awt.Dimension(500, 50));
         panelInferior.setPreferredSize(new java.awt.Dimension(500, 50));
         panelInferior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+
+        jaqueBlanco.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        jaqueBlanco.setForeground(new java.awt.Color(255, 255, 255));
+        jaqueBlanco.setText("Jaque al rey");
+        panelInferior.add(jaqueBlanco);
 
         nombreJugadorBlancas.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         nombreJugadorBlancas.setForeground(new java.awt.Color(255, 255, 255));
@@ -767,12 +785,13 @@ public class Ajedrez extends javax.swing.JFrame implements ActionListener {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jaqueBlanco;
+    private javax.swing.JLabel jaqueNegro;
     private javax.swing.JLabel nombreJugadorBlancas;
     private javax.swing.JLabel nombreJugadorNegras;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JPanel panelTablero;
-    private javax.swing.JLabel relojNegras;
     // End of variables declaration//GEN-END:variables
 
     /**

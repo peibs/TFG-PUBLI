@@ -36,6 +36,9 @@ public class Casilla {
     //Propiedad que comprueba si una casilla es defendida por mi pieza
     private boolean defendida;
     
+    //Propiedad que acumula el numero de piezas que atacan esta casilla:
+    public int numatacantes;
+    
     /**
      * Constructor que crea una casilla incluyendo en ella una pieza de ajedrez
      * 
@@ -50,12 +53,14 @@ public class Casilla {
         this.ocupada = this.pieza != null;
         this.atacable = false;
         this.defendida = false;
+        this.numatacantes = 0;
     }
     
     public Casilla(Casilla casilla){
         this.fila = casilla.getFila();
         this.columna = casilla.getColumna();
         this.ocupada = casilla.ocupada;
+        this.numatacantes = casilla.numatacantes;
         
         Pieza oldPieza = casilla.getPieza();
         
@@ -92,6 +97,7 @@ public class Casilla {
         this.ocupada = false;
         this.atacable = false;
         this.defendida = false;
+        this.numatacantes = 0;
     }
         
     /**
@@ -195,7 +201,7 @@ public class Casilla {
         return atacable;
     }
     
-       /**
+    /**
      * Método que devuelve si la casilla es defendida
      * @return Un booleano que comprueba si la casilla está ocupada
      */
@@ -204,11 +210,29 @@ public class Casilla {
     }
     
     
-         /**
+     /**
      * Método que permite modificar el estado de la casilla
      * @param defendida Nuevo estado de la casilla
      */
       public void setDefendida(boolean defendida) {
         this.defendida = defendida;
+    }
+      
+      
+     /**
+     * Método que permite modificar el numero de atacantes
+     * @param atacantes Nuevo estado de la casilla
+     */
+      public void setAtacantes(int atacantes) {
+        this.numatacantes = this.numatacantes + atacantes;
+    }
+
+      
+     /**
+     * Método que devuelve el numero de atacantes de la casilla
+     * @return Un entero con el numero de piezas que atacan
+     */
+        public int getNumAtacantes() {
+        return numatacantes;
     }
 }

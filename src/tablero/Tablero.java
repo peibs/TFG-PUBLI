@@ -124,9 +124,10 @@ public class Tablero {
 
             if (!check) {
                 pos++;
+                
             }
         }
-
+        
         return (check);
     }
 

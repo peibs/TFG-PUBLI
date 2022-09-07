@@ -28,6 +28,11 @@ public class Paleta {
     public static int ROJO2 = 0;
     public static int ROJO3 = 0; 
     
+    //Rojo claro:
+    public static int ROJO4 = 217;
+    public static int ROJO5 = 50;
+    public static int ROJO6 = 50; 
+    
     // Blanco: 
     public static int BLANCO1 = 255;
     public static int BLANCO2 = 255;

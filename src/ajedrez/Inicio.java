@@ -35,27 +35,31 @@ public class Inicio extends javax.swing.JFrame {
         botonJugar = new javax.swing.JButton();
         caballo = new javax.swing.JLabel();
         rey = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
 
-        panelContenedor.setBackground(new java.awt.Color(102, 51, 0));
+        panelContenedor.setBackground(new java.awt.Color(255, 255, 153));
         panelContenedor.setMaximumSize(new java.awt.Dimension(800, 600));
         panelContenedor.setMinimumSize(new java.awt.Dimension(800, 600));
         panelContenedor.setPreferredSize(new java.awt.Dimension(800, 600));
 
         jugadorBlancasTexto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jugadorBlancasTexto.setForeground(new java.awt.Color(255, 255, 255));
         jugadorBlancasTexto.setText("Jugador 1 (piezas blancas)");
 
         jugadorNegrasTexto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jugadorNegrasTexto.setForeground(new java.awt.Color(255, 255, 255));
         jugadorNegrasTexto.setText("Jugador 2 (piezas negras)");
 
-        saludo.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        saludo.setForeground(new java.awt.Color(255, 255, 255));
+        saludo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         saludo.setText("SISTEMA DE AYUDA A LA DECISIÓN DE AJEDREZ");
 
+        botonJugar.setBackground(new java.awt.Color(255, 153, 0));
         botonJugar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         botonJugar.setText("JUGAR");
         botonJugar.addActionListener(new java.awt.event.ActionListener() {
@@ -64,24 +68,61 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel1.setText("Casilla roja------>Pieza propia atacada");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel2.setText("Casilla azul------>Pieza enemiga atacada");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("Borde rojo------>Pieza propia no defendida");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel4.setText("Borde azul------->Pieza enemiga no defendida");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 255, 51));
+        jLabel5.setText("Casilla verde --->Casilla disponible");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("CÓDIGO DE COLORES");
+
         javax.swing.GroupLayout panelContenedorLayout = new javax.swing.GroupLayout(panelContenedor);
         panelContenedor.setLayout(panelContenedorLayout);
         panelContenedorLayout.setHorizontalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContenedorLayout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
+                .addComponent(saludo, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82))
             .addGroup(panelContenedorLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(saludo, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelContenedorLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(caballo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(104, 104, 104)
                         .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jugadorNegrasTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jugadorBlancasTexto))
-                        .addGap(40, 40, 40)
-                        .addComponent(rey, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                            .addGroup(panelContenedorLayout.createSequentialGroup()
+                                .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jugadorNegrasTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jugadorBlancasTexto))
+                                .addGap(40, 40, 40)
+                                .addComponent(rey, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel5))))
+                    .addGroup(panelContenedorLayout.createSequentialGroup()
+                        .addGap(306, 306, 306)
+                        .addComponent(botonJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelContenedorLayout.setVerticalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,15 +131,27 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(rey)
                     .addComponent(caballo))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saludo)
-                .addGap(74, 74, 74)
+                .addGap(29, 29, 29)
                 .addComponent(jugadorBlancasTexto)
                 .addGap(18, 18, 18)
                 .addComponent(jugadorNegrasTexto)
-                .addGap(77, 77, 77)
+                .addGap(83, 83, 83)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(83, 83, 83)
                 .addComponent(botonJugar)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,6 +226,12 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonJugar;
     private javax.swing.JLabel caballo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jugadorBlancasTexto;
     private javax.swing.JLabel jugadorNegrasTexto;
     private javax.swing.JPanel panelContenedor;

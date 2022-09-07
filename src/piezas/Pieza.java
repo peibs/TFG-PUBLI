@@ -52,7 +52,7 @@ public abstract class Pieza {
     public final static int ENROQUE_LARGO = 5;
     
     /**
-     * Valor que confirma que el enroque largo del rey es legal
+     * Valor que confirma si la pieza esta defendida
      */
     public final static int PIEZA_DEFENDIDA = 6;
     
